@@ -23,25 +23,15 @@ Backend:
 
 ## Features
 
-### [Name of Feature 1]
-
-[short description goes here]
-
-[gif goes here]
-
-### [Name of Feature 2]
-
-[short description goes here]
-
-[gif goes here]
-
-### [Name of Feature 3]
-
-[short description goes here]
-
-[gif goes here]
-
-### [ADDITIONAL FEATURES GO HERE - ADD ALL FEATURES HERE IN THE FORMAT ABOVE; you will check these off and add gifs as you complete them]
+- [ ] **View Transactions** — Users can view a list of all their income and expense transactions.
+- [ ] **Add Transaction** — Users can add a new transaction with an amount, description, date, and category.
+- [ ] **Edit Transaction** — Users can update an existing transaction's details.
+- [ ] **Delete Transaction** — Users can remove a transaction they no longer want tracked.
+- [ ] **Category Tagging** — Transactions can be tagged with one or more categories (e.g. Food, Rent, Entertainment) via a many-to-many relationship.
+- [ ] **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
+- [ ] **Add/Edit Transaction Modal** — A slide-out modal lets users quickly add or edit a transaction without leaving the dashboard.
+- [ ] **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
+- [ ] **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
 
 ## Installation Instructions
 
