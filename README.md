@@ -4,7 +4,7 @@ CodePath WEB103 Final Project
 
 Designed and developed by: Mario Trevino, Faisal Rasheed Khan, Eric Chen, Klane Fondo
 
-🔗 Link to deployed app:
+🔗 Link to deployed app: Pending
 
 
 ### Description and Purpose
@@ -17,9 +17,9 @@ Our team was inspired by the everyday challenge of tracking personal spending. M
 
 ## Tech Stack
 
-Frontend:
+Frontend: React
 
-Backend:
+Backend: Node.js, Express
 
 ## Features
 
