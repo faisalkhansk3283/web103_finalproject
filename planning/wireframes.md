@@ -6,16 +6,42 @@ Reference the Creating an Entity Relationship Diagram final project guide in the
 
 [👉🏾👉🏾👉🏾 List the pages you expect to have in your app, with a ⭐ next to pages you have wireframed]
 
-## Wireframe 1: [page title]
+⭐ Dashboard
+
+⭐ Transactions
+
+⭐ Categories
+
+⭐ Add Transaction Modal
+
+## Wireframe 1: Dashboard
 
 [👉🏾👉🏾👉🏾 include wireframe 1]
+The Dashboard gives users an overview of their financial activity, including balance, income, expenses, and recent transactions.
 
-## Wireframe 2: [page title]
+![Dashboard](./images/dashboard-wireframe.png)
+
+
+## Wireframe 2: Transactions
 
 [👉🏾👉🏾👉🏾 include wireframe 2]
+The Transactions page allows users to browse, filter, sort, and manage all transactions.
 
-## Wireframe 3: [page title]
+![Transactions](./images/transactions-wireframe.png)
+
+## Wireframe 3: Categories
 
 [👉🏾👉🏾👉🏾 include wireframe 3]
 
-[👉🏾👉🏾👉🏾 include more wireframes as desired]
+
+The Categories page allows users to manage default and custom categories.
+
+![Categories](./images/categories-wireframe.png)
+
+## Wireframe 4: Add Transaction Modal
+
+[👉🏾👉🏾👉🏾 include wireframe 3]
+
+The Add Transaction modal lets users create a new transaction without leaving the current page.
+
+![Add Transaction Modal](./images/add-transaction-wireframe.png)
