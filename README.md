@@ -2,7 +2,7 @@
 
 CodePath WEB103 Final Project
 
-Designed and developed by: Mario Trevino, Faisal Rasheed Khan, Eric Chen, Klane Fondo
+Designed and developed by: Mario Trevino, Faisal Rasheed Khan, Eric Chen, Klane Fondo, Kubra Sag
 
 🔗 Link to deployed app: Pending
 
