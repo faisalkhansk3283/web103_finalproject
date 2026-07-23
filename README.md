@@ -38,7 +38,16 @@ Backend: Node.js, Express
 - [x] ✅ **Category Tagging** — Transactions can be tagged with one or more categories (e.g. Food, Transportation, Business) via a many-to-many relationship.
   ![Category Tagging GIF](./planning/images/gif-p7.gif)
 
+- [x] ✅ **Category Tagging** — Transactions can be tagged with one or more categories (e.g. Food, Transportation, Business) via a many-to-many relationship.
+  ![Category Tagging GIF](./planning/images/gif-p7.gif)
 
+- [ ] **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
+
+- [ ] **Add/Edit Transaction Modals** — A slide-out modal lets users quickly add or edit a transaction without leaving the dashboard.
+
+- [ ] **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
+
+- [ ] **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
 
 ## Database Design
 
