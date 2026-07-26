@@ -58,7 +58,8 @@ Backend: Node.js, Express
 
 - [x] ✅ **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
 
-- [ ] **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
+- [x] ✅  **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
+      ![Auto-Generated Categories GIF](./planning/images/filter-sort-transactions.gif)
 
 ## Database Design
 
