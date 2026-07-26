@@ -17,10 +17,12 @@ CREATE TABLE categories (
 -- Create transactions table
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
-    description VARCHAR(255) NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
+    description TEXT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
     date DATE NOT NULL,
-    image_url VARCHAR(500),
+    type VARCHAR(10) NOT NULL DEFAULT 'expense',
+    is_recurring BOOLEAN DEFAULT FALSE,
+    next_due_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

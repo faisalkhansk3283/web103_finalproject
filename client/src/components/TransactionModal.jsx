@@ -7,6 +7,7 @@ function TransactionModal({ isOpen, onClose, onSave, transaction, categories }) 
     date: new Date().toISOString().split('T')[0],
     type: 'expense',
     categoryIds: [],
+    isRecurring: false,
   })
   const [image, setImage] = useState(null)
   const [imagePreview, setImagePreview] = useState('')
@@ -23,6 +24,7 @@ function TransactionModal({ isOpen, onClose, onSave, transaction, categories }) 
         date: transaction.date || new Date().toISOString().split('T')[0],
         type: transaction.amount < 0 ? 'expense' : 'income',
         categoryIds: transaction.categoryIds || [],
+        isRecurring: transaction.is_recurring || false,
       })
       setImage(null)
       setImagePreview(transaction.image || '')
@@ -33,6 +35,7 @@ function TransactionModal({ isOpen, onClose, onSave, transaction, categories }) 
         date: new Date().toISOString().split('T')[0],
         type: 'expense',
         categoryIds: [],
+        isRecurring: false,
       })
       setImage(null)
       setImagePreview('')
@@ -74,13 +77,13 @@ function TransactionModal({ isOpen, onClose, onSave, transaction, categories }) 
     if (!validateForm()) return
 
     const amount = parseFloat(formData.amount)
-    const finalAmount = formData.type === 'expense' ? -amount : amount
-
+    const finalAmount = amount
     const submitData = {
       ...formData,
       amount: finalAmount,
       categoryIds: formData.categoryIds,
       image: imagePreview,
+      isRecurring: formData.isRecurring,
     }
 
     if (image) {
@@ -220,6 +223,19 @@ function TransactionModal({ isOpen, onClose, onSave, transaction, categories }) 
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             />
           </div>
+
+          <div className="form-group">
+            <div className="checkbox-item">
+              <input
+                type="checkbox"
+                id="isRecurring"
+                checked={formData.isRecurring}
+                onChange={(e) => setFormData({ ...formData, isRecurring: e.target.checked })}
+              />
+              <label htmlFor="isRecurring">Repeat monthly</label>
+            </div>
+          </div>
+
 
           <div className="form-group">
             <label>Categories</label>

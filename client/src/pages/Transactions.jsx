@@ -151,9 +151,9 @@ function Transactions() {
         } else if (sortBy === 'oldest') {
           return new Date(a.date) - new Date(b.date)
         } else if (sortBy === 'highest') {
-          return Math.abs(b.amount) - Math.abs(a.amount)
+          return Math.abs(parseFloat(b.amount)) - Math.abs(parseFloat(a.amount))
         } else if (sortBy === 'lowest') {
-          return Math.abs(a.amount) - Math.abs(b.amount)
+          return Math.abs(parseFloat(a.amount)) - Math.abs(parseFloat(b.amount))
         }
         return 0
       })
@@ -290,9 +290,13 @@ function Transactions() {
                 </div>
                 <div className="category">{formatDate(transaction.date)}</div>
                 <div
-                  className={`amount ${transaction.amount >= 0 ? 'income' : 'expense'}`}
+                  className={`amount ${transaction.type === 'income' ? 'income' : 'expense'}`}
                 >
-                  {formatCurrency(transaction.amount)}
+                  {formatCurrency(
+                    transaction.type === 'expense'
+                      ? -parseFloat(transaction.amount)
+                      : parseFloat(transaction.amount)
+                  )}
                 </div>
                 <div className="actions">
                   <button onClick={() => handleEditTransaction(transaction)}>Edit</button>

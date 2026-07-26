@@ -1,13 +1,12 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import transactionRoutes from './routes/transactions.js'
 import categoryRoutes from './routes/categories.js'
 import { upload } from './middleware/upload.js'
 
-dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

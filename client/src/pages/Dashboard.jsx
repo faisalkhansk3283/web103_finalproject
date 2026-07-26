@@ -1,7 +1,12 @@
 import { useState, useEffect, useMemo } from 'react'
+import {
+  PieChart, Pie, Cell,
+  LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
+} from 'recharts'
 import TransactionModal from '../components/TransactionModal'
 
 const API_BASE = '/api'
+const COLORS = ['#6366f1', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#ec4899', '#14b8a6', '#a855f7']
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([])
@@ -11,6 +16,7 @@ function Dashboard() {
   const [selectedMonth, setSelectedMonth] = useState('')
   const [dateRange, setDateRange] = useState({ start: '', end: '' })
   const [viewingImage, setViewingImage] = useState(null)
+  const [trendRange, setTrendRange] = useState(6) // months: 1, 3, 6, 12
 
   useEffect(() => {
     fetchData()
@@ -67,14 +73,45 @@ function Dashboard() {
   }, [transactions, selectedMonth, dateRange])
 
   const totalIncome = filteredTransactions
-    .filter((t) => t.amount > 0)
-    .reduce((sum, t) => sum + t.amount, 0)
+    .filter((t) => t.type === 'income')
+    .reduce((sum, t) => sum + parseFloat(t.amount), 0)
 
-  const totalExpense = Math.abs(
-    filteredTransactions.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0)
-  )
+  const totalExpense = filteredTransactions
+    .filter((t) => t.type === 'expense')
+    .reduce((sum, t) => sum + parseFloat(t.amount), 0)
 
   const balance = totalIncome - totalExpense
+
+  // Pie chart: total expense amount per category
+  const categorySpending = useMemo(() => {
+    const totals = {}
+    filteredTransactions
+      .filter((t) => t.type === 'expense')
+      .forEach((t) => {
+        t.categories?.forEach((c) => {
+          totals[c.name] = (totals[c.name] || 0) + parseFloat(t.amount)
+        })
+      })
+    return Object.entries(totals).map(([name, value]) => ({ name, value }))
+  }, [filteredTransactions])
+
+  // Line chart: income vs expense over the selected number of months
+  const monthlyTrend = useMemo(() => {
+    const months = {}
+    transactions.forEach((t) => {
+      const date = new Date(t.date)
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+      if (!months[key]) months[key] = { month: key, income: 0, expense: 0 }
+      if (t.type === 'income') {
+        months[key].income += parseFloat(t.amount)
+      } else {
+        months[key].expense += parseFloat(t.amount)
+      }
+    })
+    return Object.values(months)
+      .sort((a, b) => a.month.localeCompare(b.month))
+      .slice(-trendRange)
+  }, [transactions, trendRange])
 
   const recentTransactions = [...filteredTransactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -231,6 +268,60 @@ function Dashboard() {
         </div>
       </div>
 
+      <div className="charts-section" style={{ display: 'flex', gap: '24px', marginTop: '24px', flexWrap: 'wrap' }}>
+        <div className="card" style={{ flex: '1 1 400px', padding: '20px' }}>
+          <h3>Spending by Category</h3>
+          {categorySpending.length === 0 ? (
+            <p>No expense data yet</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie
+                  data={categorySpending}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={90}
+                  label
+                >
+                  {categorySpending.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        <div className="card" style={{ flex: '1 1 400px', padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3>Trend</h3>
+            <select value={trendRange} onChange={(e) => setTrendRange(Number(e.target.value))}>
+              <option value={1}>1 Month</option>
+              <option value={3}>3 Months</option>
+              <option value={6}>6 Months</option>
+              <option value={12}>1 Year</option>
+            </select>
+          </div>
+          {monthlyTrend.length === 0 ? (
+            <p>No data yet</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={280}>
+              <LineChart data={monthlyTrend}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => formatCurrency(value)} />
+                <Legend />
+                <Line type="monotone" dataKey="income" stroke="#22c55e" name="Income" />
+                <Line type="monotone" dataKey="expense" stroke="#ef4444" name="Expense" />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
       <section className="transactions-section">
         <div className="section-header">
           <h3>Recent Transactions ({filteredTransactions.length})</h3>
@@ -270,9 +361,13 @@ function Dashboard() {
                 </div>
                 <div className="category">{formatDate(transaction.date)}</div>
                 <div
-                  className={`amount ${transaction.amount >= 0 ? 'income' : 'expense'}`}
+                  className={`amount ${transaction.type === 'income' ? 'income' : 'expense'}`}
                 >
-                  {formatCurrency(transaction.amount)}
+                  {formatCurrency(
+                    transaction.type === 'expense'
+                      ? -parseFloat(transaction.amount)
+                      : parseFloat(transaction.amount)
+                  )}
                 </div>
                 <div className="actions">
                   <button onClick={() => handleEditTransaction(transaction)}>Edit</button>
