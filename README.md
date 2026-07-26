@@ -54,7 +54,8 @@ Backend: Node.js, Express
 - [x] ✅ **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
   ![Auto-Generated Categories GIF](./planning/images/auto-generated-categories.gif)
 
-- [ ] **Add/Edit Transaction Modals** — A slide-out modal lets users quickly add or edit a transaction without leaving the dashboard.
+- [x] ✅ **Add/Edit Transaction Modal** — A modal lets users quickly add or edit a transaction without leaving the dashboard.
+  ![Add Transaction Modal GIF](./planning/images/add-edit--transaction-modal.gif)
 
 - [x] ✅ **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
         ![Auto-Generated Categories GIF](./planning/images/transaction-validation.gif)
