@@ -62,6 +62,9 @@ Backend: Node.js, Express
 
 - [x] ✅  **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
       ![Auto-Generated Categories GIF](./planning/images/filter-sort-transactions.gif)
+      
+- [x] ✅ **Recurring Transactions** — Users can mark a transaction as repeating monthly so it's automatically tracked each month.
+  ![Repeat Monthly GIF](./planning/images/repeat-monthly.gif)
 
 ## Database Design
 
