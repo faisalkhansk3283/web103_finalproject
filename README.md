@@ -57,6 +57,7 @@ Backend: Node.js, Express
 - [ ] **Add/Edit Transaction Modals** — A slide-out modal lets users quickly add or edit a transaction without leaving the dashboard.
 
 - [x] ✅ **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
+        ![Auto-Generated Categories GIF](./planning/images/transaction-validation.gif)
 
 - [x] ✅  **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
       ![Auto-Generated Categories GIF](./planning/images/filter-sort-transactions.gif)
