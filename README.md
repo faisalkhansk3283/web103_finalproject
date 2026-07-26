@@ -43,7 +43,8 @@ Backend: Node.js, Express
   ![Category Tagging GIF](./planning/images/gif-p7.gif)
 
 - [x] ✅ **Create/Delete Category** — Users can create a new custom category and delete a category they no longer need.
-  ![Create and Delete Category GIF](https://i.imgur.com/rvWWcYC.gif)
+  <img width="3456" height="2234" alt="image" src="https://github.com/user-attachments/assets/2dbf73b3-6227-42fa-b2d3-db492f0868fd" />
+
 
 - [ ] **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
 
