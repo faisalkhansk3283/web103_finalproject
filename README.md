@@ -51,7 +51,8 @@ Backend: Node.js, Express
 - [x] ✅ **Income/Expense Trend Chart** — A line chart shows income and expense trends over time.
   ![Trend Chart GIF](./planning/images/trend-chart.gif)
 
-- [ ] **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
+- [x] ✅ **Auto-Generated Default Categories** — When a new user is created, a default set of categories is automatically generated for them.
+  ![Auto-Generated Categories GIF](./planning/images/auto-generated-categories.gif)
 
 - [ ] **Add/Edit Transaction Modals** — A slide-out modal lets users quickly add or edit a transaction without leaving the dashboard.
 
