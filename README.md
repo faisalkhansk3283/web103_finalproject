@@ -58,10 +58,10 @@ Backend: Node.js, Express
   ![Add Transaction Modal GIF](./planning/images/add-edit--transaction-modal.gif)
 
 - [x] ✅ **Transaction Validation** — The app validates that a transaction has a positive amount, a selected category, and a date that isn't in the future before saving.
-        ![Auto-Generated Categories GIF](./planning/images/transaction-validation.gif)
+  ![Transaction Validation GIF](./planning/images/transaction-validation.gif)
 
-- [x] ✅  **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
-      ![Auto-Generated Categories GIF](./planning/images/filter-sort-transactions.gif)
+- [x] ✅ **Filter/Sort Transactions** — Users can filter transactions by category or date range, and sort by amount or recency.
+  ![Filter/Sort GIF](./planning/images/filter-sort-transactions.gif)
       
 - [x] ✅ **Recurring Transactions** — Users can mark a transaction as repeating monthly so it's automatically tracked each month.
   ![Repeat Monthly GIF](./planning/images/repeat-monthly.gif)
