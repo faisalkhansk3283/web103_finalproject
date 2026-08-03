@@ -4,7 +4,7 @@ CodePath WEB103 Final Project
 
 Designed and developed by: Mario Trevino, Faisal Rasheed Khan, Ke Zhang, Eric Chen, Klane Fondo, Kubra Sag
 
-🔗 Link to deployed app: Pending
+🔗 Link to deployed app: https://walletwatch.onrender.com (Pending - Deploy via render.yaml)
 
 
 ### Description and Purpose

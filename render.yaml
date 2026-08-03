@@ -1,0 +1,31 @@
+# Render Blueprint Specification
+# https://render.com/docs/blueprints
+
+services:
+  # PostgreSQL Database
+  - type: pg
+    name: walletwatch-db
+    plan: free
+    databaseName: walletwatch
+    ipAllowList: []
+
+  # Web Service (Backend + Frontend)
+  - type: web
+    name: walletwatch
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
+    startCommand: cd server && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: walletwatch-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "true"
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
