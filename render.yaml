@@ -6,7 +6,9 @@ databases:
   - name: walletwatch-db
     plan: free
     databaseName: walletwatch
-    ipAllowList: []
+    ipAllowList:
+      - source: 73.252.151.176/32
+        description: Mac temporary setup
 
 # Web Service (Backend + Frontend)
 services:
@@ -19,6 +21,8 @@ services:
     startCommand: cd server && npm start
     healthCheckPath: /api/health
     envVars:
+      - key: DATABASE_SSL
+        value: "true"
       - key: DATABASE_URL
         fromDatabase:
           name: walletwatch-db
