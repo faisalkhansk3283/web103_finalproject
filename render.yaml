@@ -6,9 +6,7 @@ databases:
   - name: walletwatch-db
     plan: free
     databaseName: walletwatch
-    ipAllowList:
-      - source: 73.252.151.176/32
-        description: Mac temporary setup
+    ipAllowList: []
 
 # Web Service (Backend + Frontend)
 services:
