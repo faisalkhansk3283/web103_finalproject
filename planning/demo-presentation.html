@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WalletWatch - Demo Day Presentation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .slide h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slide h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #f1f5f9;
+    }
+
+    .slide h3 {
+      font-size: 1.5rem;
+      color: #94a3b8;
+      margin-bottom: 40px;
+    }
+
+    .slide p {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      max-width: 900px;
+      text-align: center;
+      color: #cbd5e1;
+    }
+
+    .slide .subtitle {
+      font-size: 1.8rem;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+
+    .slide-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide-content.left {
+      align-items: flex-start;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.2rem;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-item .check {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .tech-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      min-width: 180px;
+    }
+
+    .tech-card .label {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .tech-card .value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #60a5fa;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-card .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .team-card .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .team-card .role {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .problem-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: 30px 0;
+    }
+
+    .problem-box li {
+      font-size: 1.2rem;
+      margin: 15px 0;
+      padding-left: 10px;
+      color: #f1f5f9;
+    }
+
+    .solution-box {
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 900px;
+      margin: 20px 0;
+    }
+
+    .solution-box li {
+      font-size: 1.15rem;
+      margin: 12px 0;
+      color: #f1f5f9;
+    }
+
+    .api-table {
+      width: 100%;
+      max-width: 900px;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .api-table th,
+    .api-table td {
+      padding: 15px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .api-table th {
+      color: #60a5fa;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .api-table td {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .api-table td:first-child {
+      font-family: monospace;
+      color: #a78bfa;
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+    }
+
+    .roadmap-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .roadmap-item .icon {
+      font-size: 1.5rem;
+    }
+
+    .roadmap-item span {
+      font-size: 1.1rem;
+    }
+
+    .challenge-table {
+      width: 100%;
+      max-width: 900px;
+      border-collapse: collapse;
+    }
+
+    .challenge-table td {
+      padding: 18px 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .challenge-table td:first-child {
+      color: #f87171;
+      font-weight: 600;
+      width: 40%;
+    }
+
+    .challenge-table td:last-child {
+      color: #4ade80;
+    }
+
+    .demo-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .demo-step {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 25px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .demo-step .number {
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .db-diagram {
+      display: flex;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .db-table {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      min-width: 200px;
+      border: 2px solid #60a5fa;
+    }
+
+    .db-table h4 {
+      text-align: center;
+      color: #60a5fa;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .db-table p {
+      font-size: 0.95rem;
+      text-align: left;
+      padding: 5px 0;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .link-item {
+      font-size: 1.3rem;
+      padding: 15px 30px;
+      background: rgba(96, 165, 250, 0.2);
+      border-radius: 12px;
+      border: 1px solid #60a5fa;
+    }
+
+    .link-item a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .link-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 100;
+    }
+
+    .nav button {
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav button.prev {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+    }
+
+    .nav button.next {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      color: white;
+    }
+
+    .nav button:hover {
+      transform: scale(1.05);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 30px;
+      right: 40px;
+      font-size: 1rem;
+      color: #64748b;
+      z-index: 100;
+    }
+
+    .slide-indicator {
+      position: fixed;
+      bottom: 30px;
+      left: 40px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: #60a5fa;
+      transform: scale(1.3);
+    }
+
+    .title-slide {
+      text-align: center;
+    }
+
+    .title-slide h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    .title-slide .tagline {
+      font-size: 2rem;
+      color: #64748b;
+      margin-bottom: 60px;
+    }
+
+    .title-slide .course {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      padding: 15px 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .gif-placeholder {
+      width: 300px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 30px 0;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .gif-placeholder span {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 40px 30px;
+      }
+
+      .slide h1 {
+        font-size: 2.5rem;
+      }
+
+      .slide h2 {
+        font-size: 1.8rem;
+      }
+
+      .feature-list,
+      .team-grid,
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .db-diagram {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="presentation">
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+      <div class="title-slide">
+        <h1>WalletWatch</h1>
+        <p class="tagline">Personal Budget Tracker</p>
+        <p class="course">CodePath WEB103 Final Project</p>
+      </div>
+    </div>
+
+    <!-- Slide 2: Team Introduction -->
+    <div class="slide">
+      <h2>Meet the Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar">MT</div>
+          <div class="name">Mario Trevino</div>
+          <div class="role">Team Lead</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">FK</div>
+          <div class="name">Faisal Rasheed Khan</div>
+          <div class="role">Backend Developer</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">KZ</div>
+          <div class="name">Ke Zhang</div>
+          <div class="role">Frontend Developer</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">EC</div>
+          <div class="name">Eric Chen</div>
+          <div class="role">Database Architect</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">KF</div>
+          <div class="name">Klane Fondo</div>
+          <div class="role">Full-Stack Developer</div>
+        </div>
+        <div class="team-card">
+          <div class="avatar">KS</div>
+          <div class="name">Kubra Sag</div>
+          <div class="role">UI/UX Designer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: The Problem -->
+    <div class="slide">
+      <h2>Where Did My Money Go?</h2>
+      <div class="gif-placeholder">
+        <span>Budget confusion animation</span>
+      </div>
+      <div class="problem-box">
+        <p style="color: #f87171; font-size: 1.3rem; margin-bottom: 20px; text-align: center;">The Reality:</p>
+        <ul>
+          <li>Most students receive money at the start of the month</li>
+          <li>By mid-month, they have no idea where it all went</li>
+          <li>Traditional budgeting apps are too complex</li>
+          <li>Spreadsheets are tedious and hard to maintain</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 4: Our Solution -->
+    <div class="slide">
+      <h2>WalletWatch - Our Solution</h2>
+      <p style="margin-bottom: 40px;">Simple. Fast. Stress-Free.</p>
+      <div class="solution-box">
+        <ul>
+          <li><strong>Log transactions in seconds</strong> - just amount, description, and category</li>
+          <li><strong>One transaction, multiple categories</strong> - dinner with a client? Food AND Business</li>
+          <li><strong>Visual insights at a glance</strong> - see where your money goes</li>
+          <li><strong>Automatic tracking</strong> - set it and forget it with recurring transactions</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 5: Tech Stack -->
+    <div class="slide">
+      <h2>Built With</h2>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="label">Frontend</div>
+          <div class="value">React 18 + Vite</div>
+        </div>
+        <div class="tech-card">
+          <div class="label">Backend</div>
+          <div class="value">Node.js + Express</div>
+        </div>
+        <div class="tech-card">
+          <div class="label">Database</div>
+          <div class="value">PostgreSQL</div>
+        </div>
+        <div class="tech-card">
+          <div class="label">Charts</div>
+          <div class="value">Recharts</div>
+        </div>
+        <div class="tech-card">
+          <div class="label">File Upload</div>
+          <div class="value">Multer</div>
+        </div>
+        <div class="tech-card">
+          <div class="label">Deployment</div>
+          <div class="value">Render</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Core Features -->
+    <div class="slide">
+      <h2>What Can You Do?</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Add income and expense transactions</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Edit existing transactions</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Delete transactions</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Upload receipt images</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Tag with multiple categories</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Create custom categories</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Filter by category or date</span>
+        </div>
+        <div class="feature-item">
+          <span class="check">✅</span>
+          <span>Sort by amount or recency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Visual Insights -->
+    <div class="slide">
+      <h2>See Your Spending</h2>
+      <div class="feature-list">
+        <div class="feature-item" style="grid-column: span 2;">
+          <span class="check">📊</span>
+          <div>
+            <strong>Category Breakdown</strong>
+            <p style="font-size: 1rem; color: #94a3b8; margin-top: 5px;">Pie chart shows expense distribution by category</p>
+          </div>
+        </div>
+        <div class="feature-item" style="grid-column: span 2;">
+          <span class="check">📈</span>
+          <div>
+            <strong>Trend Analysis</strong>
+            <p style="font-size: 1rem; color: #94a3b8; margin-top: 5px;">Line chart tracks income vs expenses over time</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Smart Features -->
+    <div class="slide">
+      <h2>Recurring Transactions</h2>
+      <h3>Never Miss a Payment Again</h3>
+      <div class="solution-box">
+        <ul>
+          <li>Mark any transaction as <strong>"Monthly Recurring"</strong></li>
+          <li>System automatically generates entries each month</li>
+          <li>Uses <strong>database-level locking</strong> to prevent duplicates</li>
+          <li>Perfect for rent, subscriptions, and regular bills</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 9: Data Validation -->
+    <div class="slide">
+      <h2>Built-In Protection</h2>
+      <p style="margin-bottom: 30px;">Before saving, we check:</p>
+      <div class="feature-list">
+        <div class="feature-item"><span class="check">✅</span> Amount must be positive</div>
+        <div class="feature-item"><span class="check">✅</span> Description is required</div>
+        <div class="feature-item"><span class="check">✅</span> At least one category required</div>
+        <div class="feature-item"><span class="check">✅</span> Date cannot be in the future</div>
+        <div class="feature-item" style="grid-column: span 2;"><span class="check">✅</span> Submit button disabled during upload</div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Database Design -->
+    <div class="slide">
+      <h2>Under the Hood - Database Design</h2>
+      <div class="db-diagram">
+        <div class="db-table">
+          <h4>categories</h4>
+          <p>id (PK)</p>
+          <p>name</p>
+          <p>is_default</p>
+        </div>
+        <div class="db-table" style="border-color: #a78bfa;">
+          <h4 style="color: #a78bfa;">transaction_categories</h4>
+          <p>transaction_id (FK)</p>
+          <p>category_id (FK)</p>
+          <p>created_at</p>
+        </div>
+        <div class="db-table">
+          <h4>transactions</h4>
+          <p>id (PK)</p>
+          <p>description</p>
+          <p>amount</p>
+          <p>date</p>
+          <p>type</p>
+          <p>is_recurring</p>
+          <p>image_url</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: API Architecture -->
+    <div class="slide">
+      <h2>RESTful API Design</h2>
+      <table class="api-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>GET</td><td>/api/transactions</td><td>List all transactions</td></tr>
+          <tr><td>POST</td><td>/api/transactions</td><td>Create new transaction</td></tr>
+          <tr><td>PUT</td><td>/api/transactions/:id</td><td>Update transaction</td></tr>
+          <tr><td>DELETE</td><td>/api/transactions/:id</td><td>Delete transaction</td></tr>
+          <tr><td>POST</td><td>/api/transactions/with-image</td><td>Upload with receipt</td></tr>
+          <tr><td>GET/POST</td><td>/api/categories</td><td>List/Create categories</td></tr>
+          <tr><td>DELETE</td><td>/api/categories/:id</td><td>Delete category</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Slide 12: Live Demo -->
+    <div class="slide">
+      <h2>Let's See It In Action</h2>
+      <h3>Demo Story: Meet Alex</h3>
+      <p style="margin-bottom: 30px;">Alex gets $1,500 on the 1st of every month. Today, Alex will:</p>
+      <div class="demo-steps">
+        <div class="demo-step"><span class="number">1</span> Log a coffee purchase (Food category)</div>
+        <div class="demo-step"><span class="number">2</span> Add monthly rent as recurring (Bills category)</div>
+        <div class="demo-step"><span class="number">3</span> Upload a restaurant receipt</div>
+        <div class="demo-step"><span class="number">4</span> View spending breakdown in charts</div>
+        <div class="demo-step"><span class="number">5</span> Filter transactions by date range</div>
+      </div>
+    </div>
+
+    <!-- Slide 13: Challenges We Solved -->
+    <div class="slide">
+      <h2>Lessons Learned</h2>
+      <table class="challenge-table">
+        <tr>
+          <td>Concurrent recurring transactions</td>
+          <td>Database-level locking (FOR UPDATE)</td>
+        </tr>
+        <tr>
+          <td>Image upload complexity</td>
+          <td>Multer with drag-and-drop support</td>
+        </tr>
+        <tr>
+          <td>Complex category relationships</td>
+          <td>Many-to-many with join table</td>
+        </tr>
+        <tr>
+          <td>Production deployment</td>
+          <td>Render Blueprint with auto-scaling</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Slide 14: Future Roadmap -->
+    <div class="slide">
+      <h2>What's Next?</h2>
+      <h3>Planned Features</h3>
+      <div class="roadmap-grid">
+        <div class="roadmap-item">
+          <span class="icon">🔐</span>
+          <span>User authentication (GitHub OAuth)</span>
+        </div>
+        <div class="roadmap-item">
+          <span class="icon">📊</span>
+          <span>Data export/import (CSV/Excel)</span>
+        </div>
+        <div class="roadmap-item">
+          <span class="icon">🏦</span>
+          <span>Bank API integration</span>
+        </div>
+        <div class="roadmap-item">
+          <span class="icon">🍞</span>
+          <span>Toast notifications</span>
+        </div>
+        <div class="roadmap-item">
+          <span class="icon">📱</span>
+          <span>Mobile responsive improvements</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: Thank You -->
+    <div class="slide">
+      <h1>Questions?</h1>
+      <div class="links">
+        <div class="link-item">
+          🌐 <a href="https://walletwatch-fsgt.onrender.com" target="_blank">https://walletwatch-fsgt.onrender.com</a>
+        </div>
+        <div class="link-item">
+          📂 <a href="https://github.com/your-username/web103_finalproject" target="_blank">github.com/your-username/web103_finalproject</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button class="prev" onclick="changeSlide(-1)">← Previous</button>
+    <button class="next" onclick="changeSlide(1)">Next →</button>
+  </div>
+
+  <div class="slide-counter">
+    <span id="current">1</span> / <span id="total">15</span>
+  </div>
+
+  <div class="slide-indicator" id="indicators"></div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const indicators = document.getElementById('indicators');
+    const currentEl = document.getElementById('current');
+    const totalEl = document.getElementById('total');
+
+    // Create dots
+    totalEl.textContent = totalSlides;
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      indicators.appendChild(dot);
+    }
+
+    function updateSlide() {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+      currentEl.textContent = currentSlide + 1;
+    }
+
+    function changeSlide(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlide();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        changeSlide(-1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides - 1);
+      }
+    });
+  </script>
+</body>
+</html>
